@@ -1,0 +1,72 @@
+<div class="container">
+<h1>Ishchilar</h1>
+
+<a class="btn btn-primary" href="/workers/new" 
+>Yangi hodim</a>
+
+<ul>
+    <table class="table table-dark table-hover table-bordered border-primary mt-3">
+    <thead> 
+        <th scope="col">Rasm</th>
+        <th scope="col">Ism</th>
+        <th scope="col">Familiya</th>
+        <th scope="col">Bo'lim</th>
+        <th scope="col">O'zgartirish</th>
+        <th scope="col">O'chirish</th>
+
+    </thead>
+    {{#each workers}}
+    <tbody>
+        <td>
+
+        <img src="{{photo}}" alt="" width="50">
+        </td>
+            <td>{{ism}}</td>
+            <td>{{familiya}}</td>
+            <td>{{bolim}}</td> 
+            <td>
+            <button class="btn btn-info" onclick="edit('{{_id}}')">Edit</button>
+            </td> 
+            <td>
+            <a href="/workers/delete/{{_id}}" class="btn btn-danger" >Delete</a>
+            </td>
+    </tbody>
+    {{/each}}   
+</table>
+</ul>
+</div>
+<div class="modal">
+    <div class="modal__title">Xodim malumotlarini o'zgartirish</div>
+    <form action="/workers/edit" method="post">
+    <input type="hidden" name="_id">
+        <div class="input-group mb-3" >
+    <label class="input-group-text" >Bo'limni tanlang</label>
+    <select class="form-select" name="bolim">
+        <option value="Web dasturlash">Web dasturlash</option>
+        <option value="Mobil ilova">Mobil ilova</option>
+        <option value="Dizayin">Dizayin</option>
+        <option value="Menijment">Menijment</option>
+    </select>
+</div>
+<div class="input-group" >
+    <span class="input-group-text"  >Ismi va Familiyasi</span>
+    <input type="text" name="ism" class="form-control">
+    <input type="text" name="familiya" class="form-control">
+</div>
+
+<div class="d-grid gap-2 mt-3 d-md-flex justify-content-md-end">
+<button type="submit"  class="btn btn-success">Kiritish</button>
+</div>
+</div>
+    </form>
+</div>
+
+<script>
+    const edit = (_id) =>{
+        fetch(`/workers/${_id}`)
+        .then(res => res.json())
+        .then(worker => {
+            console.log(worker)
+        })
+    }
+</script>
